@@ -1,0 +1,24 @@
+version: '3.6'
+services:
+  frpc:
+    image: "rayruan/amd64_frp:${FRP_IMAGE_TAG:-0.60.0}"
+    container_name: "${SERVER_NAME}"
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ${INSTALL_ROOT_PATH}/${SERVER_NAME}/${CFGS_DIR}/frpc.toml:/etc/frp/frpc.toml:ro
+      - ${INSTALL_ROOT_PATH}/${SERVER_NAME}/frpc_entrypoint.sh:/app/frpc_entrypoint.sh:ro
+      - ${INSTALL_ROOT_PATH}/${SERVER_NAME}/${CERTIFICATES_DIR}/client.crt:/client.crt:ro
+      - ${INSTALL_ROOT_PATH}/${SERVER_NAME}/${CERTIFICATES_DIR}/client.key:/client.key:ro
+      - ${INSTALL_ROOT_PATH}/${SERVER_NAME}/${CERTIFICATES_DIR}/rootCA.crt:/ca.crt:ro
+    networks:
+      - frpc_synology
+    entrypoint: /app/frpc_entrypoint.sh
+    restart: always
+   
+networks:
+  frpc_synology:
+    name: "${SERVER_NAME}"
