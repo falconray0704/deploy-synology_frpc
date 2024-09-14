@@ -11,9 +11,9 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - ${INSTALL_ROOT_PATH}/${SERVER_NAME}/${CFGS_DIR}/frpc.toml:/etc/frp/frpc.toml:ro
       - ${INSTALL_ROOT_PATH}/${SERVER_NAME}/frpc_entrypoint.sh:/app/frpc_entrypoint.sh:ro
-      - ${INSTALL_ROOT_PATH}/${SERVER_NAME}/${CERTIFICATES_DIR}/client.crt:/client.crt:ro
-      - ${INSTALL_ROOT_PATH}/${SERVER_NAME}/${CERTIFICATES_DIR}/client.key:/client.key:ro
-      - ${INSTALL_ROOT_PATH}/${SERVER_NAME}/${CERTIFICATES_DIR}/rootCA.crt:/ca.crt:ro
+      - ${INSTALL_ROOT_PATH}/${SERVER_NAME}/${CERTS_DIR}/client.crt:/client.crt:ro
+      - ${INSTALL_ROOT_PATH}/${SERVER_NAME}/${CERTS_DIR}/client.key:/client.key:ro
+      - ${INSTALL_ROOT_PATH}/${SERVER_NAME}/${CERTS_DIR}/rootCA.crt:/ca.crt:ro
     networks:
       - frpc_synology
     entrypoint: /app/frpc_entrypoint.sh
